@@ -35,6 +35,7 @@ upscale_factor = 4
 
 inputs = Input(shape=(44, 44, 3))
 
+# test 1 change activation functions(swift, etc.)
 net = Conv2D(filters=64, kernel_size=5, strides=1, padding='same', activation='relu')(inputs)
 net = Conv2D(filters=64, kernel_size=3, strides=1, padding='same', activation='relu')(net)
 net = Conv2D(filters=32, kernel_size=3, strides=1, padding='same', activation='relu')(net)
