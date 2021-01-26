@@ -1,27 +1,28 @@
+#%%
 # Load Library
 import os
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 from skimage.transform import pyramid_reduce
-
+#%%
 os.chdir('C:\Super_Resolution')
 base_path = 'C:\Super_Resolution\LP'
 img_base_path = os.path.join(base_path, 'images')
 target_img_path = os.path.join(base_path, 'processed')
-
+#%%
 eval_list = np.loadtxt(os.path.join(base_path, 'list_eval_partition_LP.csv'),
                        dtype=str,
                        delimiter=',',
                        skiprows=1)
-
-img_sample = cv2.imread(os.path.join(img_base_path, eval_list[89][0]))
+#%%
+img_sample = cv2.imread(os.path.join(img_base_path, eval_list[5000][0]))
 
 h, w, _ = img_sample.shape
 print(img_sample.shape)
-crop_sample = img_sample[:60, 20:220]
-crop_sample = cv2.resize(crop_sample, dsize=(200, 60))
-
+# 정사각형 이미지로 crop 해준다.
+# crop_sample = img_sample[int((h-w)/2):int(-(h-w)/2), :]
+crop_sample = cv2.resize(img_sample,(1000,1000))
 print(crop_sample.shape)
 
 # 이미지를 4배만큼 축소하고 normalize 한다.
@@ -58,8 +59,6 @@ downscale = 4
 
 num = 0
 for i, e in enumerate(eval_list):
-    num+=1
-    print(num)
     filename, ext = os.path.splitext(e[0])
 
     img_path = os.path.join(img_base_path, e[0])
@@ -68,8 +67,9 @@ for i, e in enumerate(eval_list):
 
     h, w, _ = img.shape
 
-    crop = img[:60, 20:220]
-    crop = cv2.resize(crop, dsize=(200,60))
+    # crop = img[int((h-w)/2):int(-(h-w)/2), :]
+    # crop = cv2.resize(crop, dsize=(176,176))
+    crop = cv2.resize(img, dsize=(1000,1000))
 
     resized = pyramid_reduce(crop, downscale=downscale, multichannel=True)
 
