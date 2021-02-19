@@ -7,15 +7,15 @@ from skimage.transform import pyramid_reduce
 
 os.chdir('C:\Super_Resolution')
 base_path = 'C:\Super_Resolution\LP'
-img_base_path = os.path.join(base_path, 'images')
-target_img_path = os.path.join(base_path, 'processed')
+img_base_path = os.path.join(base_path, 'images_color_gray')
+target_img_path = os.path.join(base_path, 'processed_color_gray')
 
-eval_list = np.loadtxt(os.path.join(base_path, 'list_eval_partition_LP.csv'),
+eval_list = np.loadtxt(os.path.join(base_path, 'list_eval_partition_LP_color_gray.csv'),
                        dtype=str,
                        delimiter=',',
                        skiprows=1)
 
-img_sample = cv2.imread(os.path.join(img_base_path, eval_list[89][0]))
+img_sample = cv2.imread(os.path.join(img_base_path, eval_list[5000][0]))
 
 h, w, _ = img_sample.shape
 print(img_sample.shape)
@@ -52,9 +52,6 @@ plt.show()
 
 
 downscale = 4
-# n_train = 162770
-# n_val = 19867
-# n_test = 19962
 
 num = 0
 for i, e in enumerate(eval_list):
